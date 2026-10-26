@@ -10,6 +10,7 @@ from functools import partial
 import pandas as pd
 from download_models import MODEL_HASHES
 from pathlib import Path
+from prompt_templates import TEMPLATES, build_prompt
 
 
 # Model settings used vary a little to reflect their resource intensity and propensity for reasoning
@@ -54,18 +55,24 @@ MODEL_SETTINGS = {
 
 
 def run_games(
-            prompts, 
-            temperature,
             model,
             model_root,
+            condition='with_belief_with_util',
+            benefit=3,
+            cost=1.5,
+            public_belief_proportion=50,
+            temperature=1.0,
+            sample_size=100,
             random_seed_start=4321,
-            *,
-            condition,
-            benefit,
-            cost,
-            public_belief_proportion,
 ):
-    
+    prompt = build_prompt(
+        benefit=benefit,
+        cost=cost,
+        public_belief_proportion=public_belief_proportion,
+        prompt_template=TEMPLATES[condition],
+    )
+    prompts = [prompt] * sample_size
+
     settings = MODEL_SETTINGS[model]
     version_hash = MODEL_HASHES[model]
     model_dir = Path(model_root) / model / f"{model}-{version_hash}"

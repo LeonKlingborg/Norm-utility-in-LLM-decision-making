@@ -40,8 +40,10 @@ The generated data file contains a table with the following columns:
 - `benefit`: the benefit of at least one player cooperating in the game.
 - `cost`: the total cost of cooperation (split between both players if both cooperate).
 - `public_belief_proportion`: The proportion of the public that's said to believe cooperation is the right thing to do.
-- `temperature`: The temperature parameter when sampling the next token from the log probs from the LLM.
+- `sample_temperature`: The temperature parameter when sampling the next token from the log probs from the LLM.
 - `prompt`: The prompt used.
 - `raw_output`: The full output from the prompted model.
 - `reasoning`: The reasoning part of the output.
 - `answer`: The answer part of the output. The answer is intended to be formatted as a JSON string containing the actions recommended by the LLM. The intended keys of the JSON are `action` and `public_belief` with values in [`true`, `false`], where `true` indicates cooperation and belief in cooperation and `false` indicates defection and belief in defection.
+- `model`: The model used.
+- `version_hash`: The model revision hash used.
